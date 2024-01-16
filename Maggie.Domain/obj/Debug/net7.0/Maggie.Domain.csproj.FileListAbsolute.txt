@@ -1,0 +1,12 @@
+/Users/raphaelneves/Developer/C#/Maggie/Maggie.Domain/bin/Debug/net7.0/Maggie.Domain.deps.json
+/Users/raphaelneves/Developer/C#/Maggie/Maggie.Domain/bin/Debug/net7.0/Maggie.Domain.dll
+/Users/raphaelneves/Developer/C#/Maggie/Maggie.Domain/bin/Debug/net7.0/Maggie.Domain.pdb
+/Users/raphaelneves/Developer/C#/Maggie/Maggie.Domain/obj/Debug/net7.0/Maggie.Domain.csproj.AssemblyReference.cache
+/Users/raphaelneves/Developer/C#/Maggie/Maggie.Domain/obj/Debug/net7.0/Maggie.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/raphaelneves/Developer/C#/Maggie/Maggie.Domain/obj/Debug/net7.0/Maggie.Domain.AssemblyInfoInputs.cache
+/Users/raphaelneves/Developer/C#/Maggie/Maggie.Domain/obj/Debug/net7.0/Maggie.Domain.AssemblyInfo.cs
+/Users/raphaelneves/Developer/C#/Maggie/Maggie.Domain/obj/Debug/net7.0/Maggie.Domain.csproj.CoreCompileInputs.cache
+/Users/raphaelneves/Developer/C#/Maggie/Maggie.Domain/obj/Debug/net7.0/Maggie.Domain.dll
+/Users/raphaelneves/Developer/C#/Maggie/Maggie.Domain/obj/Debug/net7.0/refint/Maggie.Domain.dll
+/Users/raphaelneves/Developer/C#/Maggie/Maggie.Domain/obj/Debug/net7.0/Maggie.Domain.pdb
+/Users/raphaelneves/Developer/C#/Maggie/Maggie.Domain/obj/Debug/net7.0/ref/Maggie.Domain.dll

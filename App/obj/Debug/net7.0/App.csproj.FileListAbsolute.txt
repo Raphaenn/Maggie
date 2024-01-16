@@ -1,0 +1,17 @@
+/Users/raphaelneves/Developer/C#/Maggie/App/bin/Debug/net7.0/App.deps.json
+/Users/raphaelneves/Developer/C#/Maggie/App/bin/Debug/net7.0/App.dll
+/Users/raphaelneves/Developer/C#/Maggie/App/bin/Debug/net7.0/App.pdb
+/Users/raphaelneves/Developer/C#/Maggie/App/bin/Debug/net7.0/Maggie.Domain.dll
+/Users/raphaelneves/Developer/C#/Maggie/App/bin/Debug/net7.0/Maggie.Infrastructure.dll
+/Users/raphaelneves/Developer/C#/Maggie/App/bin/Debug/net7.0/Maggie.Domain.pdb
+/Users/raphaelneves/Developer/C#/Maggie/App/bin/Debug/net7.0/Maggie.Infrastructure.pdb
+/Users/raphaelneves/Developer/C#/Maggie/App/obj/Debug/net7.0/App.csproj.AssemblyReference.cache
+/Users/raphaelneves/Developer/C#/Maggie/App/obj/Debug/net7.0/App.GeneratedMSBuildEditorConfig.editorconfig
+/Users/raphaelneves/Developer/C#/Maggie/App/obj/Debug/net7.0/App.AssemblyInfoInputs.cache
+/Users/raphaelneves/Developer/C#/Maggie/App/obj/Debug/net7.0/App.AssemblyInfo.cs
+/Users/raphaelneves/Developer/C#/Maggie/App/obj/Debug/net7.0/App.csproj.CoreCompileInputs.cache
+/Users/raphaelneves/Developer/C#/Maggie/App/obj/Debug/net7.0/App.csproj.CopyComplete
+/Users/raphaelneves/Developer/C#/Maggie/App/obj/Debug/net7.0/App.dll
+/Users/raphaelneves/Developer/C#/Maggie/App/obj/Debug/net7.0/refint/App.dll
+/Users/raphaelneves/Developer/C#/Maggie/App/obj/Debug/net7.0/App.pdb
+/Users/raphaelneves/Developer/C#/Maggie/App/obj/Debug/net7.0/ref/App.dll

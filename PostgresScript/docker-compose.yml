@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  database:
+    container_name: postgresDb
+    image: postgres
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - 5432:5432
+volumes:
+  pgdata:

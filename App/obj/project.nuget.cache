@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "9A11DNc1g4VS8bI49uh02430HSo+tEtQVi09bVNXyMeKrk8wnHHAE30SmgZ6vi8tp93hzfOwiQ6DvuNKkvEG4A==",
+  "success": true,
+  "projectFilePath": "/Users/raphaelneves/Developer/C#/Maggie/App/App.csproj",
+  "expectedPackageFiles": [
+    "/Users/raphaelneves/.nuget/packages/microsoft.extensions.logging.abstractions/6.0.0/microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
+    "/Users/raphaelneves/.nuget/packages/npgsql/7.0.6/npgsql.7.0.6.nupkg.sha512"
+  ],
+  "logs": []
+}
