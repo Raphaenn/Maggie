@@ -22,12 +22,12 @@ public abstract class ServiceBase<TEntity> : IRespositoryBase<TEntity> where TEn
         return await _respository.Add(obj);
     }
 
-    public Task<TEntity> GetById(string id)
+    public virtual async Task<IEnumerable<TEntity>> GetAll()
     {
-        throw new NotImplementedException();
+        return await _respository.GetAll();
     }
-
-    public Task<IEnumerable<TEntity>> GetAll()
+    
+    public Task<TEntity> GetById(string id)
     {
         throw new NotImplementedException();
     }

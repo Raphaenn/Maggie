@@ -32,9 +32,24 @@ public class UserAppService : IUserAppService
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<UserDto>> GetAllUsers()
+    public async Task<IEnumerable<UserDto>> GetAllUsers()
     {
-        throw new NotImplementedException();
+        IEnumerable<Users> allUsers = await _userRepository.GetAll();
+        List<UserDto> userList = new List<UserDto>();
+        foreach (Users user in allUsers)
+        {
+            UserDto parsedUser = new UserDto
+            {
+                Id = user.Id,
+                Nome = user.Name,
+                Email = user.Email,
+                DataNascimento = user.BirthDate,
+                Status = user.Status,
+            };
+            userList.Add(parsedUser);
+        }
+        
+        return userList;
     }
 
     public Task UpdateUser(UserDto obj)

@@ -24,10 +24,6 @@ builder.Services.AddScoped<PostgresContext>(_ =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserAppService, UserAppService>();
 builder.Services.AddScoped<UserServiceBase>();
-// builder.Services.AddScoped<PostgresContext>();
-
-// services.AddDbContext<UserRepository>(options =>
-// options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

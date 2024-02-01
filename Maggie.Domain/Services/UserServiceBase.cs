@@ -17,4 +17,10 @@ public class UserServiceBase : ServiceBase<Users>, IUserRepository
       // Lógica de negócios se necessário
       return await _userRepository.Add(user);
    }
+
+   public async Task<IEnumerable<Users>> GetAll()
+   {
+      IEnumerable<Users> allUsers =  await _userRepository.GetAll();
+      return allUsers;
+   }
 }
