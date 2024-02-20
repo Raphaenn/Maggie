@@ -1,3 +1,4 @@
+using App.Services;
 using Maggie.App.Interfaces;
 using Maggie.App.Services;
 using Maggie.App.Services;
@@ -21,9 +22,15 @@ builder.Services.AddScoped<PostgresContext>(_ =>
     return new PostgresContext(connectionString);
 });
 
+// Users Scope
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserAppService, UserAppService>();
 builder.Services.AddScoped<UserServiceBase>();
+
+// Budget Scope
+builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
+builder.Services.AddScoped<IBudgetAppService, BudgetAppService>();
+builder.Services.AddScoped<BudgetService>();
 
 var app = builder.Build();
 

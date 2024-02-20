@@ -7,11 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Npgsql" Version="7.0.6" />
+        <PackageReference Include="Npgsql" Version="7.0.6"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Maggie.Domain\Maggie.Domain.csproj" />
+        <ProjectReference Include="..\Maggie.Domain\Maggie.Domain.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="Data\PostgresConnect\PostgresContext.cs"/>
     </ItemGroup>
 
 </Project>

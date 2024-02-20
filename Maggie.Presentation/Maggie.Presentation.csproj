@@ -13,8 +13,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\App\App.csproj" />
-      <ProjectReference Include="..\Maggie.Domain\Maggie.Domain.csproj" />
+        <ProjectReference Include="..\App\App.csproj"/>
+        <ProjectReference Include="..\Maggie.Domain\Maggie.Domain.csproj"/>
     </ItemGroup>
 
 </Project>

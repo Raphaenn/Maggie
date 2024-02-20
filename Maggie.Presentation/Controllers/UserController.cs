@@ -21,4 +21,11 @@ public class UserController : ControllerBase
         await _userAppService.AddUser(user);
         return Ok();
     }
+
+    [HttpGet("/list")]
+    public async Task<ActionResult<IEnumerable<UserDto>>> List()
+    {
+        IEnumerable<UserDto> listUsers = await _userAppService.GetAllUsers();
+        return Ok(listUsers.ToList());
+    }
 }

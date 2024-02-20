@@ -5,25 +5,18 @@ namespace Maggie.Infrastructure.Data.PostgresConnect;
 
 public class PostgresContext : IDisposable
 {
-        private readonly NpgsqlConnection _connection;
+        private readonly NpgsqlDataSource _connection;
         
         public PostgresContext(string connection)
-        {
-                _connection = new NpgsqlConnection(connection);;
+        { 
+                _connection = NpgsqlDataSource.Create(connection);
         }
 
-        public void OpenConnection()
+        public async void OpenConnectionAsync()
         {
-                if(_connection.State == ConnectionState.Closed) 
-                        _connection.Open();
+                await using var connection = await _connection.OpenConnectionAsync();
         }
-
-        public void CloseConnection()
-        {
-                if(_connection.State == ConnectionState.Open)
-                        _connection.Close();
-        }
-
+        
         public IDbCommand CreateCommand()
         {
                 return _connection.CreateCommand();
@@ -31,7 +24,7 @@ public class PostgresContext : IDisposable
 
         public void Dispose()
         {
-                CloseConnection();
+                // CloseConnection();
                 _connection.Dispose();
         }
 }

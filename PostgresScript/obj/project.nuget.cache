@@ -1,12 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "Wu/dKfmLJ86k/ynaBEoWtjxNrTIfjQGv603Fy6DQeDgQpxHDVWFJ5VoYn4nm0ya8mRV3OXXpdxMLgBJTPkccWA==",
+  "dgSpecHash": "5PUSWvh6tCrguxfqMyC0jRc9dg7K2cP+gNBRT/FY+ca9gazBPprnsnvzbaev15/IpxIrMrjVmWB4mUlD6LwVpw==",
   "success": true,
   "projectFilePath": "/Users/raphaelneves/Developer/C#/Maggie/PostgresScript/PostgresScript.csproj",
   "expectedPackageFiles": [
     "/Users/raphaelneves/.nuget/packages/microsoft.extensions.logging.abstractions/6.0.0/microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
-    "/Users/raphaelneves/.nuget/packages/npgsql/7.0.0/npgsql.7.0.0.nupkg.sha512",
-    "/Users/raphaelneves/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    "/Users/raphaelneves/.nuget/packages/npgsql/7.0.6/npgsql.7.0.6.nupkg.sha512"
   ],
   "logs": []
 }
