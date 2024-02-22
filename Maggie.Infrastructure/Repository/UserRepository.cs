@@ -19,14 +19,13 @@ public class UserRepository : IUserRepository
     {
         await using (var conn = await _postgresContext.DataSource.OpenConnectionAsync())
         {
-            await using (var command = new NpgsqlCommand("INSERT INTO users (Name, Email, Birthdate, Status) VALUES (@Name, @Email, @Birthdate, @Status) RETURNING Id", conn))
+            await using (var command = new NpgsqlCommand("INSERT INTO users (Id, Name, Email, Status) VALUES (@Id, @Name, @Email, @Status) RETURNING Id", conn))
             {
+                command.Parameters.Add(new NpgsqlParameter("@Id", NpgsqlDbType.Uuid) { Value = obj.Id });
                 command.Parameters.Add(new NpgsqlParameter("@Name", NpgsqlDbType.Text) { Value = obj.Name });
                 command.Parameters.Add(new NpgsqlParameter("@Email", NpgsqlDbType.Text) { Value = obj.Email });
-                command.Parameters.Add(new NpgsqlParameter("@Birthdate", NpgsqlDbType.Date) { Value = obj.BirthDate });
                 command.Parameters.Add(new NpgsqlParameter("@Status", NpgsqlDbType.Boolean) { Value = obj.Status });
             
-                
                 var insertedId = await command.ExecuteScalarAsync();
                 Console.WriteLine($"The id created: {insertedId}");
                 return obj;
@@ -50,6 +49,7 @@ public class UserRepository : IUserRepository
                     while (await reader.ReadAsync())
                     {
                         // var cepIndex = reader.GetOrdinal("Cep"); // Get the index of the Cep column, -1 if not found
+                        Guid id = (Guid)reader["Id"];
                         string name = reader["Name"].ToString();
                         string email = reader["Email"].ToString();
                         DateTime birthdate = DateTime.Parse(reader["BirthDate"].ToString());
@@ -59,7 +59,7 @@ public class UserRepository : IUserRepository
                         // Handle nullable Cep
                         // string cep = reader["Cep"] is DBNull ? null : reader["Cep"].ToString();
 
-                        Users user = new Users(name, email, birthdate, false, role, cep: null);
+                        Users user = new Users(id, name, email, false);
     
                         users.Add(user);
                     }

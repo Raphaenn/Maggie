@@ -20,7 +20,7 @@ public class Program
             {
                 connection.Open();
 
-                ExecuteScript(connection, File.ReadAllText($"{DbFolder}/Developer/C#/Maggie/PostgresScript/BudgetTable.sql"));
+                ExecuteScript(connection, File.ReadAllText($"{DbFolder}/Developer/C#/Maggie/PostgresScript/UserTable.sql"));
 
                 Console.WriteLine("Database created with success!");
             }

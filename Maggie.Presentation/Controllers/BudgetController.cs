@@ -17,9 +17,9 @@ public class BudgetController : ControllerBase
     }
 
     [HttpPost("/create")]
-    public async Task<ActionResult<PersonalBudgetDto>> CreateBudget([FromBody] PersonalBudgetDto request)
+    public async Task<ActionResult<PersonalBudgetDto>> CreateBudget([FromBody] BudgetCreateDto request)
     {
-        var response = await _budgetAppService.CreatePersonalBudget(request);
+        var response = await _budgetAppService.CreatePersonalBudget(request.Budget, request.LinkToUser.UserId);
         return Ok(response);
     }
 }

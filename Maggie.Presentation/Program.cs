@@ -32,6 +32,9 @@ builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
 builder.Services.AddScoped<IBudgetAppService, BudgetAppService>();
 builder.Services.AddScoped<BudgetService>();
 
+builder.Services.AddScoped<IBudgetToUserRepository, BudgetToUserRepository>();
+builder.Services.AddScoped<BudgetToUserService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

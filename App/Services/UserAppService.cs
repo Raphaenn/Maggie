@@ -19,8 +19,8 @@ public class UserAppService : IUserAppService
     
     public async Task<UserDto> AddUser(UserDto obj)
     {
-        Users user = new Users(name: obj.Nome, email: obj.Email,
-            birthdate: obj.DataNascimento, status: obj.Status, UserRole.Default, cep: obj.Cep);
+        Guid newId = Guid.NewGuid();
+        Users user = new Users(id: newId, name: obj.Nome, email: obj.Email, status: obj.Status);
         
         await _userRepository.Add(user);
         return obj;
@@ -41,7 +41,6 @@ public class UserAppService : IUserAppService
             {
                 Nome = user.Name,
                 Email = user.Email,
-                DataNascimento = user.BirthDate,
                 Status = user.Status,
             };
             userList.Add(parsedUser);

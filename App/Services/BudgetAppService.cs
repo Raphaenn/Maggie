@@ -9,21 +9,17 @@ public class BudgetAppService : IBudgetAppService
 {
 
     private readonly IBudgetRepository _budgetRepository;
+    private readonly IBudgetToUserRepository _budgetToUserRepository;
 
-    public BudgetAppService(IBudgetRepository budgetRepository)
+    public BudgetAppService(IBudgetRepository budgetRepository, IBudgetToUserRepository budgetToUserRepository)
     {
         _budgetRepository = budgetRepository;
+        _budgetToUserRepository = budgetToUserRepository;
     }
 
-    public async Task<PersonalBudgetDto> CreatePersonalBudget(PersonalBudgetDto obj)
+    public async Task<PersonalBudgetDto> CreatePersonalBudget(PersonalBudgetDto obj, string userId)
     {
-
-        // if (obj.Salario < 0)
-        // {
-        //     throw new ArgumentException("Invalid Salary");
-        // }
-        
-        Guid uuid = Guid.NewGuid();  
+        Guid uuid = Guid.NewGuid(); 
         PersonalBudget personalBudget = new PersonalBudget(
             id: uuid,
             salary: obj.Salario,
@@ -36,24 +32,10 @@ public class BudgetAppService : IBudgetAppService
             clothes: obj.Roupas
             );
 
+        Guid userGuid = Guid.Parse(userId);
+        await _budgetToUserRepository.LinkBudgetToUser(userGuid, uuid);
+
         await _budgetRepository.CreateBudget(personalBudget);
         return obj;
     }
-
-    // public async Task<PersonalBudgetDto> GerarBudget(PersonalBudgetDto obj, LocalCoefficientDto localData)
-    // {
-    //     PersonalBudget personalBudget = new PersonalBudget();
-    //
-    //     LocalCoefficient local = new LocalCoefficient()
-    //     {
-    //         factory = localData.factory,
-    //         Cep = localData.Cep,
-    //         City = localData.City,
-    //         Id = localData.Id,
-    //         State = localData.State
-    //     };
-    //
-    //     var result = await _budgetRepository.GenerateBudget(personalBudget, local);
-    //     return obj;
-    // }
 }
