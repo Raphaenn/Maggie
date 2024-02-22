@@ -256,7 +256,7 @@ paket-files/
 
 # JetBrains Rider
 .idea/
-.idea/.idea.Maggie/.idea
+.idea.Maggie/
 *.sln.iml
 
 # CodeRush
