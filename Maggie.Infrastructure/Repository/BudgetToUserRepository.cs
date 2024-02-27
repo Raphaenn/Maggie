@@ -1,4 +1,3 @@
-using Maggie.Domain.Entities;
 using Maggie.Domain.Interfaces.Repository;
 using Maggie.Infrastructure.Data.PostgresConnect;
 using Npgsql;
@@ -14,10 +13,8 @@ public class BudgetToUserRepository : IBudgetToUserRepository
         _postgresContext = postgresContext;
     }
     
-    public async Task<BudgetUser> LinkBudgetToUser(Guid userId, Guid budgetId)
+    public async Task LinkBudgetToUser(Guid userId, Guid budgetId)
     {
-        Console.WriteLine(userId);
-        Console.WriteLine(budgetId);
         await using (var connect = await _postgresContext.DataSource.OpenConnectionAsync())
         {
             await using (var command = new NpgsqlCommand())
@@ -34,10 +31,5 @@ public class BudgetToUserRepository : IBudgetToUserRepository
                 await command.ExecuteNonQueryAsync();
             }
         }
-        Guid one = Guid.NewGuid();
-        Guid two = Guid.NewGuid();
-        Guid three = Guid.NewGuid();
-        BudgetUser test = new BudgetUser(one, two, three);
-        return test;
     }
 }

@@ -1,9 +1,7 @@
 using Maggie.Domain.Entities;
-using Maggie.Domain.Interfaces;
 using Maggie.Domain.Interfaces.Repository;
 using Maggie.Dto;
 using Maggie.App.Interfaces;
-using Maggie.App.Mapper;
 
 namespace Maggie.App.Services;
 
@@ -21,11 +19,16 @@ public class UserAppService : IUserAppService
     {
         Guid newId = Guid.NewGuid();
         Users user = new Users(id: newId, name: obj.Nome, email: obj.Email, status: obj.Status);
+
+        if (await _userRepository.CheckEmailUsage(obj.Email))
+        {
+            throw new InvalidOperationException("Email already in use.");
+        }
         
         await _userRepository.Add(user);
         return obj;
     }
-
+    
     public Task<UserDto> GetUserById(string id)
     {
         throw new NotImplementedException();

@@ -23,4 +23,9 @@ public class UserServiceBase : ServiceBase<Users>, IUserRepository
       IEnumerable<Users> allUsers =  await _userRepository.GetAll();
       return allUsers;
    }
+
+   public async Task<bool> CheckEmailUsage(string email)
+   {
+      return await _userRepository.CheckEmailUsage(email);
+   }
 }

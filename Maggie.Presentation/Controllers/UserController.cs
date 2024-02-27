@@ -18,8 +18,15 @@ public class UserController : ControllerBase
     [HttpPost("/add")]
     public async Task<ActionResult<UserDto>> Add([FromBody] UserDto user)
     {
-        await _userAppService.AddUser(user);
-        return Ok();
+        try
+        {
+            await _userAppService.AddUser(user);
+            return Ok();
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpGet("/list")]

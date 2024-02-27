@@ -14,6 +14,30 @@ public class UserRepository : IUserRepository
     {
         _postgresContext = postgresContext;
     }
+    
+    public async Task<bool> CheckEmailUsage(string email)
+    {
+        await using (var connection = await _postgresContext.DataSource.OpenConnectionAsync())
+        {
+            await using (var command = new NpgsqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = "SELECT * FROM users WHERE Email = @Email";
+                command.Parameters.AddWithValue("Email", email);
+
+                var reader = await command.ExecuteReaderAsync();
+
+                if (await reader.ReadAsync())
+                {
+                    string? name = reader["Name"].ToString();
+                    string? mail = reader["Email"].ToString();
+                    new Users(id: reader.GetGuid(reader.GetOrdinal("Id")), name, mail, false);
+                    return true;
+                }
+                return false;
+            }
+        } 
+    }
 
     public async Task<Users> Add(Users obj)
     {
@@ -25,6 +49,13 @@ public class UserRepository : IUserRepository
                 command.Parameters.Add(new NpgsqlParameter("@Name", NpgsqlDbType.Text) { Value = obj.Name });
                 command.Parameters.Add(new NpgsqlParameter("@Email", NpgsqlDbType.Text) { Value = obj.Email });
                 command.Parameters.Add(new NpgsqlParameter("@Status", NpgsqlDbType.Boolean) { Value = obj.Status });
+
+                // Check if the email is already used
+                // var existingUser = await GetByEmailAsync(obj.Email);
+                // if (existingUser != null)
+                // {
+                //     throw new InvalidOperationException("Email is already used.");
+                // }
             
                 var insertedId = await command.ExecuteScalarAsync();
                 Console.WriteLine($"The id created: {insertedId}");

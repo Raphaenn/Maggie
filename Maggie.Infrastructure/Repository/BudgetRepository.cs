@@ -51,36 +51,4 @@ public class BudgetRepository : IBudgetRepository
             }
         }
     }
-
-    // public async Task<PersonalBudget> GetBudget(PersonalBudget obj)
-    // {
-    //     await using (var conn = await _postgresContext.DataSource.OpenConnectionAsync())
-    //     {
-    //         await using (var command = new NpgsqlCommand("SELECT * FROM budgetitens", conn))
-    //         {
-    //             await using (var reader = await command.ExecuteReaderAsync())
-    //             {
-    //                 while (await reader.ReadAsync())
-    //                 {
-    //                     string light = reader["ligth"].ToString();
-    //                     Console.WriteLine("Testando");
-    //                     Console.WriteLine(reader);
-    //                 }
-    //             }
-    //             
-    //             PersonalBudget response = new PersonalBudget(
-    //                 id: obj.Id,
-    //                 salary: obj.Salary,
-    //                 light: obj.Light,
-    //                 water: obj.Water,
-    //                 internet: obj.Internet,
-    //                 basicFood: obj.BasicFood,
-    //                 leisure: obj.Leisure,
-    //                 health: obj.Health,
-    //                 clothes: obj.Clothes
-    //             );
-    //             return response;
-    //         }
-    //     }
-    // }
 }

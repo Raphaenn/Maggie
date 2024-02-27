@@ -2,7 +2,7 @@ using Maggie.Domain.Entities;
 
 namespace Maggie.Domain.Interfaces.Repository;
 
-public interface IRespositoryBase<TEntity> where TEntity : class
+public interface IRepositoryBase<TEntity> where TEntity : class
 {
     Task<TEntity> Add(TEntity obj);
 
