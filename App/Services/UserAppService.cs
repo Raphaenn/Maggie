@@ -18,7 +18,7 @@ public class UserAppService : IUserAppService
     public async Task<UserDto> AddUser(UserDto obj)
     {
         Guid newId = Guid.NewGuid();
-        Users user = new Users(id: newId, name: obj.Nome, email: obj.Email, status: obj.Status);
+        Users user = new Users(id: newId, name: obj.Nome, email: obj.Email, obj.Cpf);
 
         if (await _userRepository.CheckEmailUsage(obj.Email))
         {

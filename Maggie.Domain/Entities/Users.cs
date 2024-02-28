@@ -10,17 +10,17 @@ public class Users
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
-    public string? Cpf { get; set; }
-    public string Email { get; private set; }
+    public string Email { get; private set; } = String.Empty;
+    public string Cpf { get; private set; } = String.Empty;
     public bool Status { get; set; }
 
-
-    public Users(Guid id, string name, string email, bool status)
+    public Users(Guid id, string name, string email, string cpf)
     {
         Id = id;
         Name = name;
         SetEmail(email);
-        Status = status;
+        SetCpf(cpf);
+        Status = true;
     }
     
     private void SetEmail(string email)
@@ -29,7 +29,16 @@ public class Users
         {
             throw new Exception("Invalid Email");
         }
-
         Email = email;
+    }
+
+    private void SetCpf(string cpf)
+    {
+        if (string.IsNullOrWhiteSpace(cpf) || (cpf.Length < 11))
+        {
+            throw new Exception("Invalid Cpf");
+        }
+
+        Cpf = cpf;
     }
 }   

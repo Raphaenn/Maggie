@@ -31,7 +31,8 @@ public class UserRepository : IUserRepository
                 {
                     string? name = reader["Name"].ToString();
                     string? mail = reader["Email"].ToString();
-                    new Users(id: reader.GetGuid(reader.GetOrdinal("Id")), name, mail, false);
+                    string? cpf = reader["Cpf"].ToString();
+                    new Users(id: reader.GetGuid(reader.GetOrdinal("Id")), name, mail, cpf);
                     return true;
                 }
                 return false;
@@ -43,11 +44,12 @@ public class UserRepository : IUserRepository
     {
         await using (var conn = await _postgresContext.DataSource.OpenConnectionAsync())
         {
-            await using (var command = new NpgsqlCommand("INSERT INTO users (Id, Name, Email, Status) VALUES (@Id, @Name, @Email, @Status) RETURNING Id", conn))
+            await using (var command = new NpgsqlCommand("INSERT INTO users (Id, Name, Email, Cpf, Status) VALUES (@Id, @Name, @Email, @Cpf, @Status) RETURNING Id", conn))
             {
                 command.Parameters.Add(new NpgsqlParameter("@Id", NpgsqlDbType.Uuid) { Value = obj.Id });
                 command.Parameters.Add(new NpgsqlParameter("@Name", NpgsqlDbType.Text) { Value = obj.Name });
                 command.Parameters.Add(new NpgsqlParameter("@Email", NpgsqlDbType.Text) { Value = obj.Email });
+                command.Parameters.Add(new NpgsqlParameter("@Cpf", NpgsqlDbType.Text) { Value = obj.Cpf });
                 command.Parameters.Add(new NpgsqlParameter("@Status", NpgsqlDbType.Boolean) { Value = obj.Status });
 
                 // Check if the email is already used
@@ -83,6 +85,7 @@ public class UserRepository : IUserRepository
                         Guid id = (Guid)reader["Id"];
                         string name = reader["Name"].ToString();
                         string email = reader["Email"].ToString();
+                        string cpf = reader["Cpf"].ToString();
                         DateTime birthdate = DateTime.Parse(reader["BirthDate"].ToString());
                         // Assuming UserRole.Default is a valid enum value for your UserRole
                         var role = UserRole.Default;
@@ -90,7 +93,7 @@ public class UserRepository : IUserRepository
                         // Handle nullable Cep
                         // string cep = reader["Cep"] is DBNull ? null : reader["Cep"].ToString();
 
-                        Users user = new Users(id, name, email, false);
+                        Users user = new Users(id, name, email, cpf);
     
                         users.Add(user);
                     }
