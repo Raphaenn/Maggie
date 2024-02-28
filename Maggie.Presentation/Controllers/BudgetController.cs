@@ -22,4 +22,12 @@ public class BudgetController : ControllerBase
         var response = await _budgetAppService.CreatePersonalBudget(request.Budget, request.LinkToUser.UserId);
         return Ok(response);
     }
+
+    [HttpGet("/user/{id}")]
+    public async Task<ActionResult<PersonalBudgetDto>> GetBudgetByUserId([FromRoute] string id)
+    {
+        Console.WriteLine(id);
+        var response = await _budgetAppService.GetBudgetByUser(id);
+        return Ok(response);
+    }
 }

@@ -44,6 +44,7 @@ public class UserAppService : IUserAppService
             {
                 Nome = user.Name,
                 Email = user.Email,
+                Cpf = user.Cpf,
                 Status = user.Status,
             };
             userList.Add(parsedUser);

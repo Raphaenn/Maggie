@@ -3,7 +3,7 @@ namespace Maggie.Domain.Entities;
 public class PersonalBudget
 {
 	public Guid Id { get; set; }
-	public decimal Light { get; private set; } 
+	public decimal Light { get; private set; }
 	public decimal Water { get; private set; } 
 	public decimal Internet { get; private set; } 
 	public decimal BasicFood { get; private set; }

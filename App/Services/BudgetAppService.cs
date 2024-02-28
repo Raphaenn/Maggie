@@ -38,4 +38,20 @@ public class BudgetAppService : IBudgetAppService
         await _budgetRepository.CreateBudget(personalBudget);
         return obj;
     }
+
+    public async Task<PersonalBudgetDto> GetBudgetByUser(string id)
+    {
+        Guid formatId = Guid.Parse(id);
+        PersonalBudget budget = await _budgetRepository.GetBudgetByUserId(formatId);
+        PersonalBudgetDto mapperBudget = new PersonalBudgetDto
+        {
+            Salario = budget.Salary,
+            Agua = budget.Water,
+            Luz = budget.Light,
+            Lazer = budget.Leisure,
+            Internet = budget.Internet,
+            CestaBasica = budget.BasicFood,
+        };
+        return mapperBudget;
+    }
 }

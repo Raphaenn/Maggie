@@ -17,4 +17,10 @@ public class BudgetService : IBudgetRepository
 		PersonalBudget response = await _budgetRepository.CreateBudget(budget);
 		return response;
 	}
+
+	public async Task<PersonalBudget> GetBudgetByUserId(Guid id)
+	{
+		PersonalBudget response = await _budgetRepository.GetBudgetByUserId(id);
+		return response;
+	}
 }

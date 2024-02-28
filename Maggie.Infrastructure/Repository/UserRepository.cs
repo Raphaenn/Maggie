@@ -86,12 +86,6 @@ public class UserRepository : IUserRepository
                         string name = reader["Name"].ToString();
                         string email = reader["Email"].ToString();
                         string cpf = reader["Cpf"].ToString();
-                        DateTime birthdate = DateTime.Parse(reader["BirthDate"].ToString());
-                        // Assuming UserRole.Default is a valid enum value for your UserRole
-                        var role = UserRole.Default;
-
-                        // Handle nullable Cep
-                        // string cep = reader["Cep"] is DBNull ? null : reader["Cep"].ToString();
 
                         Users user = new Users(id, name, email, cpf);
     

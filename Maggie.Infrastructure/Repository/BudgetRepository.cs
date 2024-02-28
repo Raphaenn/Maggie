@@ -19,7 +19,6 @@ public class BudgetRepository : IBudgetRepository
     {
         await using (var connect = await _postgresContext.DataSource.OpenConnectionAsync())
         {
-            
             string SqlQuery = "INSERT INTO Budget (id, salary, light, water, internet, basic_food, health, leisure, clothes, transport, home_rent, home_tax, home_financing, car_tax, car_financing, gas, medicines, education, home_spends) VALUES (@id, @salary, @light, @water, @internet, @basic_food, @health, @leisure, @clothes, @transport, @home_rent, @home_tax, @home_financing, @car_tax, @car_financing, @gas, @medicines, @education, @home_spends)";
 
             await using (var command = new NpgsqlCommand(SqlQuery, connect))
@@ -50,5 +49,36 @@ public class BudgetRepository : IBudgetRepository
                 return budget;
             }
         }
+    }
+
+    public async Task<PersonalBudget> GetBudgetByUserId(Guid id)
+    {
+        await using (var connect = await _postgresContext.DataSource.OpenConnectionAsync())
+        {
+            await using (var command = new NpgsqlCommand())
+            {
+                command.Connection = connect;
+                command.CommandText = "SELECT * FROM budget_user bu JOIN users u ON bu.user_id = u.id JOIN budget b ON b.id = bu.budget_id WHERE bu.user_id = @Id";
+                command.Parameters.AddWithValue("Id", id);
+
+                var reader = await command.ExecuteReaderAsync();
+                if (await reader.ReadAsync())
+                {
+                    Guid budgetId = (Guid)reader["id"];
+                    decimal salary = (decimal)reader["salary"];
+                    decimal light = (decimal)reader["light"];
+                    decimal water = (decimal)reader["water"];
+                    decimal basicFood = (decimal)reader["basic_food"];
+                    decimal internet = (decimal)reader["internet"];
+                    decimal leisure = (decimal)reader["leisure"];
+                    decimal health = (decimal)reader["health"];
+                    decimal clothes = (decimal)reader["clothes"];
+                    PersonalBudget mapperBudget = new PersonalBudget(id: budgetId, salary: salary, light: light, water: water, internet: internet, basicFood: basicFood, leisure: leisure, health: health, clothes: clothes);
+
+                    return mapperBudget;
+                }
+            }
+        }
+        return null;
     }
 }
