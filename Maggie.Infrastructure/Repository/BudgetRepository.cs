@@ -93,8 +93,9 @@ public class BudgetRepository : IBudgetRepository
             await using (var command = new NpgsqlCommand())
             {
                 command.Connection = conn;
-                command.CommandText = "SELECT * FROM budget_user bu JOIN users u ON bu.user_id = u.id JOIN budget b ON b.id = bu.budget_id WHERE bu.user_id = @Id";
+                command.CommandText = "SELECT * FROM budget_user bu JOIN users u ON bu.user_id = u.id JOIN budget b ON b.id = bu.budget_id WHERE bu.user_id = @Id AND EXTRACT(YEAR FROM b.budget_date) = @Year";
                 command.Parameters.AddWithValue("Id", id);
+                command.Parameters.AddWithValue("Year", year);
 
                 var reader = await command.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
