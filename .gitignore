@@ -277,3 +277,12 @@ __pycache__/
 *.iml
 out
 gen
+/Maggie.Presentation/bin/
+/Maggie.Presentation/obj/
+/Maggie.Infrastructure/obj/
+/Maggie.Infrastructure/bin/
+/Maggie.Domain/obj/
+/Maggie.Domain/bin/
+/Maggie.App/bin/
+/Maggie.App/obj/
+/Maggie/Domain/**/obj/
