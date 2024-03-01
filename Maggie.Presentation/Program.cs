@@ -6,6 +6,7 @@ using Maggie.Domain.Interfaces.Repository;
 using Maggie.Domain.Services;
 using Maggie.Infrastructure.Data.PostgresConnect;
 using Maggie.Infrastructure.Repository;
+using Maggie.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 

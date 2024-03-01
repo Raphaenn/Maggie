@@ -16,18 +16,24 @@ public class BudgetController : ControllerBase
         _budgetAppService = budgetAppService;
     }
 
-    [HttpPost("/create")]
-    public async Task<ActionResult<PersonalBudgetDto>> CreateBudget([FromBody] BudgetCreateDto request)
+    [HttpPost("/create/{id}")]
+    public async Task<ActionResult<PersonalBudgetDto>> CreateBudget([FromRoute] string id, [FromBody] PersonalBudgetDto budget)
     {
-        var response = await _budgetAppService.CreatePersonalBudget(request.Budget, request.LinkToUser.UserId);
+        var response = await _budgetAppService.CreatePersonalBudget(budget, id);
         return Ok(response);
     }
 
     [HttpGet("/user/{id}")]
     public async Task<ActionResult<PersonalBudgetDto>> GetBudgetByUserId([FromRoute] string id)
     {
-        Console.WriteLine(id);
         var response = await _budgetAppService.GetBudgetByUser(id);
+        return Ok(response);
+    }
+
+    [HttpGet("/list/by-year/{id}")]
+    public async Task<ActionResult<PersonalBudgetDto>> GetYearBudget([FromRoute] string id, [FromQuery] int year)
+    {
+        PersonalBudgetDto response = await _budgetAppService.GetBudgetByYear(id, year);
         return Ok(response);
     }
 }

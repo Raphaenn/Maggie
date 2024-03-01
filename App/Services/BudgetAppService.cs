@@ -29,7 +29,17 @@ public class BudgetAppService : IBudgetAppService
             basicFood: obj.CestaBasica,
             health: obj.Saude,
             leisure: obj.Lazer,
-            clothes: obj.Roupas
+            clothes: obj.Roupas,
+            budgetDate: obj.BudgetData,
+            homeRent: obj.Aluguel,
+            homeTax: obj.Condominio,
+            transport: obj.Transporte,
+            medicines: obj.Medicamentos,
+            education: obj.Educacao,
+            homeSpends: obj.DespesasCasa,
+            homeFinancing: obj.FinanciamentoCasa,
+            carTax: obj.ImpostosCarro,
+            carFinancing: obj.FinanciamentoCarro
             );
 
         Guid userGuid = Guid.Parse(userId);
@@ -51,7 +61,51 @@ public class BudgetAppService : IBudgetAppService
             Lazer = budget.Leisure,
             Internet = budget.Internet,
             CestaBasica = budget.BasicFood,
+            BudgetData = budget.BudgetDate,
+            Saude = budget.Health,
+            Roupas = budget.Clothes,
+            Transporte = budget.Transport,
+            Aluguel = budget.HomeRent,
+            Condominio = budget.HomeTax,
         };
+
+        mapperBudget.Balance();
         return mapperBudget;
+    }
+
+    public async Task<PersonalBudgetDto> GetBudgetByYear(string userId, int year)
+    {
+        Guid formatId = Guid.Parse(userId);
+        List<PersonalBudget> budgets = await _budgetRepository.GetYearBudget(formatId, year);
+        List<PersonalBudgetDto> sumBudget = new List<PersonalBudgetDto>();
+        foreach (var budget in budgets)
+        {
+            sumBudget.Add(new PersonalBudgetDto()
+            {
+                Luz = budget.Light,
+                Agua = budget.Water,
+                Internet = budget.Internet,
+                CestaBasica = budget.BasicFood,
+                Saude = budget.Health,
+                Lazer = budget.Leisure,
+                Roupas = budget.Clothes,
+                Transporte = budget.Transport,
+                Aluguel = budget.HomeRent,
+                Condominio = budget.HomeTax,
+                FinanciamentoCasa = budget.HomeFinancing,
+                ImpostosCarro = budget.CarTax,
+                FinanciamentoCarro = budget.CarFinancing,
+                Medicamentos = budget.Medicines,
+                Educacao = budget.Education,
+                DespesasCasa = budget.HomeSpends,
+                BudgetData = budget.BudgetDate,
+                Salario = budget.Salary,
+            });
+        }
+
+        PersonalBudgetDto response = PersonalBudgetDto.SumBudgets(sumBudget);
+        response.Balance();
+        return response;
+
     }
 }

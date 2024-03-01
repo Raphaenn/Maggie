@@ -12,6 +12,7 @@ public class Users
     public string Name { get; set; }
     public string Email { get; private set; } = String.Empty;
     public string Cpf { get; private set; } = String.Empty;
+    public int IdAccount { get; set; }
     public bool Status { get; set; }
 
     public Users(Guid id, string name, string email, string cpf)
@@ -29,6 +30,7 @@ public class Users
         {
             throw new Exception("Invalid Email");
         }
+        
         Email = email;
     }
 
@@ -38,7 +40,7 @@ public class Users
         {
             throw new Exception("Invalid Cpf");
         }
-
+        
         Cpf = cpf;
     }
 }   

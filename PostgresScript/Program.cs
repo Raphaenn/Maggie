@@ -20,7 +20,7 @@ public class Program
             {
                 connection.Open();
 
-                ExecuteScript(connection, File.ReadAllText($"{DbFolder}/Developer/C#/Maggie/PostgresScript/AddUserCpfColumn.sql"));
+                ExecuteScript(connection, File.ReadAllText($"{DbFolder}/Developer/C#/Maggie/PostgresScript/mcc_codes.sql"));
 
                 Console.WriteLine("Database created with success!");
             }

@@ -6,5 +6,5 @@ public interface IBudgetRepository
 {
 	Task<PersonalBudget> CreateBudget(PersonalBudget budget);
 	Task<PersonalBudget> GetBudgetByUserId(Guid id);
-	// Task<PersonalBudget> GenerateBudget(PersonalBudget obj, LocalCoefficient local);
+	Task<List<PersonalBudget>> GetYearBudget(Guid id, int year);
 }

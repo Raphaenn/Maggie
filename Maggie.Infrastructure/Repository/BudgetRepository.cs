@@ -19,7 +19,7 @@ public class BudgetRepository : IBudgetRepository
     {
         await using (var connect = await _postgresContext.DataSource.OpenConnectionAsync())
         {
-            string SqlQuery = "INSERT INTO Budget (id, salary, light, water, internet, basic_food, health, leisure, clothes, transport, home_rent, home_tax, home_financing, car_tax, car_financing, gas, medicines, education, home_spends) VALUES (@id, @salary, @light, @water, @internet, @basic_food, @health, @leisure, @clothes, @transport, @home_rent, @home_tax, @home_financing, @car_tax, @car_financing, @gas, @medicines, @education, @home_spends)";
+            string SqlQuery = "INSERT INTO Budget (id, salary, light, water, internet, basic_food, health, leisure, clothes, transport, home_rent, home_tax, home_financing, car_tax, car_financing, medicines, education, home_spends, budget_date) VALUES (@id, @salary, @light, @water, @internet, @basic_food, @health, @leisure, @clothes, @transport, @home_rent, @home_tax, @home_financing, @car_tax, @car_financing, @medicines, @education, @home_spends, @budget_date)";
 
             await using (var command = new NpgsqlCommand(SqlQuery, connect))
             {
@@ -41,8 +41,8 @@ public class BudgetRepository : IBudgetRepository
                 command.Parameters.Add(new NpgsqlParameter("@home_financing", NpgsqlDbType.Numeric) { Value = (object)budget.HomeFinancing ?? DBNull.Value });
                 command.Parameters.Add(new NpgsqlParameter("@car_tax", NpgsqlDbType.Numeric) { Value = (object)budget.CarTax ?? DBNull.Value });
                 command.Parameters.Add(new NpgsqlParameter("@car_financing", NpgsqlDbType.Numeric) { Value = (object)budget.CarFinancing ?? DBNull.Value });
-                command.Parameters.Add(new NpgsqlParameter("@gas", NpgsqlDbType.Numeric) { Value = (object)budget.Gas ?? DBNull.Value });
                 command.Parameters.Add(new NpgsqlParameter("@home_spends", NpgsqlDbType.Numeric) { Value = (object)budget.HomeSpends ?? DBNull.Value });
+                command.Parameters.Add(new NpgsqlParameter("@budget_date", NpgsqlDbType.Date) { Value = (object)budget.BudgetDate ?? DateTime.Now });
                 
                 var insertedId = await command.ExecuteScalarAsync();
                 Console.WriteLine($"The id created: {insertedId}");
@@ -72,13 +72,50 @@ public class BudgetRepository : IBudgetRepository
                     decimal internet = (decimal)reader["internet"];
                     decimal leisure = (decimal)reader["leisure"];
                     decimal health = (decimal)reader["health"];
+                    decimal homeRent = (decimal)reader["home_rent"];
+                    decimal transport = (decimal)reader["transport"];
                     decimal clothes = (decimal)reader["clothes"];
-                    PersonalBudget mapperBudget = new PersonalBudget(id: budgetId, salary: salary, light: light, water: water, internet: internet, basicFood: basicFood, leisure: leisure, health: health, clothes: clothes);
-
+                    DateTime budgetDate = (DateTime)reader["budget_date"];
+                    PersonalBudget mapperBudget = new PersonalBudget(id: budgetId, salary: salary, light: light, water: water, internet: internet, basicFood: basicFood, leisure: leisure, health: health, clothes: clothes, budgetDate: budgetDate, homeRent: homeRent, transport: transport);
                     return mapperBudget;
                 }
             }
         }
         return null;
+    }
+
+    public async Task<List<PersonalBudget>> GetYearBudget(Guid id, int year)
+    {
+        List<PersonalBudget> budgetResult = new List<PersonalBudget>();
+        
+        await using (var conn = await _postgresContext.DataSource.OpenConnectionAsync())
+        {
+            await using (var command = new NpgsqlCommand())
+            {
+                command.Connection = conn;
+                command.CommandText = "SELECT * FROM budget_user bu JOIN users u ON bu.user_id = u.id JOIN budget b ON b.id = bu.budget_id WHERE bu.user_id = @Id";
+                command.Parameters.AddWithValue("Id", id);
+
+                var reader = await command.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    Guid budgetId = (Guid)reader["id"];
+                    decimal salary = (decimal)reader["salary"];
+                    decimal light = (decimal)reader["light"];
+                    decimal water = (decimal)reader["water"];
+                    decimal basicFood = (decimal)reader["basic_food"];
+                    decimal internet = (decimal)reader["internet"];
+                    decimal leisure = (decimal)reader["leisure"];
+                    decimal health = (decimal)reader["health"];
+                    decimal homeRent = (decimal)reader["home_rent"];
+                    decimal transport = (decimal)reader["transport"];
+                    decimal clothes = (decimal)reader["clothes"];
+                    DateTime budgetDate = (DateTime)reader["budget_date"];
+                    PersonalBudget mapperBudget = new PersonalBudget(id: budgetId, salary: salary, light: light, water: water, internet: internet, basicFood: basicFood, leisure: leisure, health: health, clothes: clothes, budgetDate: budgetDate, homeRent: homeRent, transport: transport);
+                    budgetResult.Add(mapperBudget);
+                }
+            }
+        }
+        return budgetResult;
     }
 }

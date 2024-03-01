@@ -1,25 +1,27 @@
+using System.Globalization;
+
 namespace Maggie.Domain.Entities;
 
 public class PersonalBudget
 {
 	public Guid Id { get; set; }
-	public decimal Light { get; private set; }
-	public decimal Water { get; private set; } 
-	public decimal Internet { get; private set; } 
-	public decimal BasicFood { get; private set; }
-	public decimal Health { get; private set; } 
-	public decimal Leisure { get; private set; } 
-	public decimal Clothes { get; private set; }
-	public decimal? Transport { get; private set; }
-	public decimal? HomeRent { get; private set; }
-	public decimal? HomeTax { get; private set; }
-	public decimal? HomeFinancing { get; private set; }
-	public decimal? CarTax { get; private set; }
-	public decimal? CarFinancing { get; private set; }
-	public decimal? Gas { get; private set; }
-	public decimal? Medicines { get; private set; }
-	public decimal? Education { get; private set; }
-	public decimal? HomeSpends { get; private set; }
+	public decimal Light { get; set; }
+	public decimal Water { get; set; } 
+	public decimal Internet { get; set; } 
+	public decimal BasicFood { get; set; }
+	public decimal Health { get; set; } 
+	public decimal Leisure { get; set; } 
+	public decimal Clothes { get; set; }
+	public decimal? Transport { get; set; }
+	public decimal? HomeRent { get; set; }
+	public decimal? HomeTax { get; set; }
+	public decimal? HomeFinancing { get; set; }
+	public decimal? CarTax { get; set; }
+	public decimal? CarFinancing { get; set; }
+	public decimal? Medicines { get; set; }
+	public decimal? Education { get; set; }
+	public decimal? HomeSpends { get; set; }
+	public DateTime BudgetDate { get; set; }
 	
 	
 	public decimal Salary { get; private set; }
@@ -34,9 +36,9 @@ public class PersonalBudget
 		decimal health, 
 		decimal leisure, 
 		decimal clothes,
+		DateTime budgetDate,
 		
 		decimal? transport = null, 
-		decimal? gas = null,
 		decimal? medicines = null,
 		decimal? education = null,
 		decimal? homeSpends = null,
@@ -58,6 +60,8 @@ public class PersonalBudget
 
 		Id = id;
 		Salary = salary;
+		SetBudgetDate(budgetDate);
+		
 		Light = light;
 		Water = water;
 		Internet = internet;
@@ -71,35 +75,15 @@ public class PersonalBudget
 		HomeFinancing = homeFinancing;
 		CarTax = carTax;
 		CarFinancing = carFinancing;
-		Gas = gas;
 		Medicines = medicines;
 		Education = education;
 		HomeSpends = homeSpends;
 	}
-}
 
-/*
- # Contas a parar
-	Luz	R$ 100
-	Condomínio (IPTU/Gás/Água)	R$ 200
-	Internet	R$ 150
-	Aluguel (residência com 45m²)	R$1.725,75
-	Cesta básica	R$ 791,82
-	Transporte (levando em consideração apenas o uso do transporte público)	R$ 264
-	Saúde	R$ 300
-	Lazer	R$ 750
-	Reserva de emergência	R$ 856, 31
-	
-# Salário ideal
-	Salário ideal	R$ 5.137,88
-	
-	
-# Cesta básica por cidade
-   São Paulo: R$ 782,68
-   Porto Alegre: R$ 781,52
-   Florianópolis: R$ 776,14
-   Rio de Janeiro: R$ 749,25
-   Campo Grande: R$ 738,53
-   Outras capitais R$ 511,97
-   
- */
+	private void SetBudgetDate(DateTime date)
+	{
+		// Set to the first day of the month
+		DateTime firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
+		this.BudgetDate = firstDayOfMonth;
+	}
+}

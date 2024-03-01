@@ -8,6 +8,7 @@
 
     <ItemGroup>
         <Compile Remove="Interfaces\Service\**"/>
+        <Compile Remove="Entities\LocalCoefficient.cs" />
     </ItemGroup>
 
     <ItemGroup>
